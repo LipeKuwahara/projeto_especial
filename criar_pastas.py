@@ -1,4 +1,5 @@
 import os
+from openpyxl import Workbook
 
 # Caminho base onde os projetos serão criados
 base_dir = "output_dir"
@@ -9,6 +10,7 @@ if not os.path.exists(base_dir):
     os.makedirs(base_dir)
 
 # Solicita as informações do projeto
+iniciais = input("INSIRA A INICIAL DO SEU NOME E SOBRENOME: ").strip().upper()
 numero = input("INSIRA O NÚMERO DO PROJETO: ").strip().upper()
 nome_op = input("INSIRA A OP: ").strip().upper()
 nome_ambiente = input("INSIRA O NOME DO AMBIENTE: ").strip().upper()
@@ -16,7 +18,7 @@ nome_cliente = input("INSIRA O NOME DO CLIENTE: ").strip().upper()
 nome_vendedor = input("INSIRA O NOME DO VENDEDOR: ").strip().upper()
 
 # Constrói o nome do projeto
-projeto_nome = f"FK - {numero} - {nome_op} - {nome_ambiente} - {nome_cliente} - {nome_vendedor}"
+projeto_nome = f"{iniciais} - {numero} - {nome_op} - {nome_ambiente} - {nome_cliente} - {nome_vendedor}"
 
 # Define a estrutura de pastas
 estrutura = [
@@ -39,6 +41,14 @@ try:
         subpasta_path = os.path.join(projeto_path, pasta)
         os.makedirs(subpasta_path, exist_ok=True)
         print(f"Subpasta criada: {subpasta_path}")
+
+        # Se for a pasta "ARQUIVOS", cria um arquivo Excel em branco
+        if pasta == "ARQUIVOS":
+            arquivo_excel_path = os.path.join(subpasta_path, "arquivo_em_branco.xlsx")
+            # Cria um arquivo Excel em branco
+            wb = Workbook()
+            wb.save(arquivo_excel_path)
+            print(f"Arquivo Excel criado em: {arquivo_excel_path}")
 
     print("\nEstrutura de pastas criada com sucesso!")
 except Exception as e:
