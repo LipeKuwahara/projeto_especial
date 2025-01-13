@@ -42,13 +42,19 @@ try:
         os.makedirs(subpasta_path, exist_ok=True)
         print(f"Subpasta criada: {subpasta_path}")
 
-        # Se for a pasta "ARQUIVOS", cria um arquivo Excel em branco
+        # Se for a pasta "ARQUIVOS", cria um arquivo Excel e um Bloco de Notas em branco
         if pasta == "ARQUIVOS":
-            arquivo_excel_path = os.path.join(subpasta_path, "arquivo_em_branco.xlsx")
             # Cria um arquivo Excel em branco
+            arquivo_excel_path = os.path.join(subpasta_path, "arquivo_em_branco.xlsx")
             wb = Workbook()
             wb.save(arquivo_excel_path)
             print(f"Arquivo Excel criado em: {arquivo_excel_path}")
+
+            # Cria um arquivo de texto em branco
+            arquivo_txt_path = os.path.join(subpasta_path, "arquivo_em_branco.txt")
+            with open(arquivo_txt_path, "w") as txt_file:
+                txt_file.write("")  # Arquivo vazio
+            print(f"Bloco de Notas criado em: {arquivo_txt_path}")
 
     print("\nEstrutura de pastas criada com sucesso!")
 except Exception as e:
